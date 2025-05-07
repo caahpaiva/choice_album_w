@@ -15,26 +15,41 @@ albums = ['Wanessa Camargo 2000',
           'Livre']
 
 def sorteio(albums):
-    escutar = choice(albums)
-    return escutar
+    return choice(albums)
 
-name = input(f'Olá, digite o seu nome: ')
-print(f' \n ======= Olá, {name}! Qual álbum da Wanessa Camargo vamos escutar hoje? =======')
+name = input('Olá, digite o seu nome: ')
+print(f'\n======= Olá, {name}! Qual álbum da Wanessa Camargo vamos escutar hoje? =======')
 
-def iniciar():
-    sortear = int(input('\n Digite o número 1 para sortear um albúm: '))
-    return sortear
+def menu_inicial():
+    while True:
+        try:
+            escolha = int(input('\nDigite o número 1 para sortear um álbum ou 2 para finalizar: '))
+            if escolha in [1, 2]:
+                return escolha
+            else:
+                print("Opção inválida. Tente novamente.")
+        except ValueError:
+            print("Por favor, digite um número válido.")
 
-sortear = iniciar()
+while True:
+    sortear = menu_inicial()
 
-if sortear == 1:
-    escutar = sorteio(albums)
-    print(f'\n O álbum sorteado para escutar hoje é: {escutar}')
-else: 
-    iniciar()
+    if sortear == 1:
+        while True:
+            escutar = sorteio(albums)
+            print(f'\nO álbum sorteado para escutar hoje é: {escutar}')
 
-
-
-    
-
-
+            try:
+                resposta = int(input('\nDeseja realizar um novo sorteio? Digite 1 para SIM ou 2 para NÃO: '))
+                if resposta == 1:
+                    continue
+                elif resposta == 2:
+                    print("Concluído! Até a próxima :)")
+                    exit()  # <- Encerra o programa completamente
+                else:
+                    print("Opção inválida. Digite 1 ou 2.")
+            except ValueError:
+                print("Por favor, digite um número válido.")
+    elif sortear == 2:
+        print("Concluído! Até a próxima :)")
+        break
